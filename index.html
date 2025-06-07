@@ -8,8 +8,8 @@
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Watch this on YouTube!" />
   <meta property="og:description" content="Redirecting you to an amazing video..." />
-  <meta property="og:image" content="https://img.youtube.com/vi/F4hxeRfFQ40/maxresdefault.jpg" />
-  <meta property="og:url" content="https://youtu.be/F4hxeRfFQ40" />
+  <meta property="og:image" content="https://img.youtube.com/vi/BNQI-fHIwbQ/maxresdefault.jpg" />
+  <meta property="og:url" content="https://youtu.be/BNQI-fHIwbQ?si=0ybmttGVzbCjyjok" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
@@ -51,18 +51,19 @@
     }
 
     window.onload = function () {
-      const appUrl = "vnd.youtube://F4hxeRfFQ40";
-      const webUrl = "https://youtu.be/F4hxeRfFQ40";
+      // deep link for mobile apps usually just needs the video ID
+      const appUrl = "vnd.youtube://BNQI-fHIwbQ";
+      const webUrl = "https://youtu.be/BNQI-fHIwbQ?si=0ybmttGVzbCjyjok";
 
       if (isMobile()) {
         window.location.href = appUrl;
 
-        // Fallback after 2.5s if app doesn’t open
+        // Fallback to web after 2.5s if app doesn’t open
         setTimeout(() => {
           window.location.href = webUrl;
         }, 2500);
       } else {
-        // Desktop - direct to web
+        // Desktop - go straight to web URL
         window.location.href = webUrl;
       }
     };
@@ -76,3 +77,5 @@
   </div>
 </body>
 </html>
+
+     
