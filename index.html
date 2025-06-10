@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +9,11 @@
   <meta property="og:title" content="Watch this on YouTube!" />
   <meta property="og:description" content="Redirecting you to an amazing video..." />
   <meta property="og:image" content="https://img.youtube.com/vi/BNQI-fHIwbQ/maxresdefault.jpg" />
-  <meta property="og:url" content="https://youtu.be/BNQI-fHIwbQ" />
+  <meta property="og:url" content="https://yourdomain.com/redirect.html" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Non-JS fallback for any browser -->
+  <meta http-equiv="refresh" content="0;url=https://youtu.be/BNQI-fHIwbQ" />
 
   <style>
     body {
@@ -49,16 +51,22 @@
 
   <script>
     window.onload = function () {
-      const appUrl = "vnd.youtube://BNQI-fHIwbQ";
-      const webUrl = "https://youtu.be/BNQI-fHIwbQ";
+      const webUrl    = "https://youtu.be/BNQI-fHIwbQ";
+      const appUrl    = "vnd.youtube://BNQI-fHIwbQ";
+      const intentUrl = "intent://youtu.be/BNQI-fHIwbQ#Intent;package=com.google.android.youtube;scheme=https;end";
 
-      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      const ua = navigator.userAgent;
+      if (/Android/i.test(ua)) {
+        // Android: use intent URL (almost always honored)
+        window.location.href = intentUrl;
+      } else if (/iPhone|iPad|iPod/i.test(ua)) {
+        // iOS: try deep-link first, then fallback
         window.location.href = appUrl;
-
         setTimeout(() => {
           window.location.href = webUrl;
         }, 2500);
       } else {
+        // Desktop/others: go straight to web URL
         window.location.href = webUrl;
       }
     };
@@ -67,8 +75,9 @@
 <body>
   <div class="loader"></div>
   <div class="message">
-    <p>Opening YouTube...</p>
+    <p>Opening YouTube…</p>
     <p>If it doesn’t open, <a href="https://youtu.be/BNQI-fHIwbQ">click here</a>.</p>
   </div>
 </body>
 </html>
+
